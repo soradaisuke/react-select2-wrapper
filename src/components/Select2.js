@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import shallowEqualFuzzy from 'shallow-equal-fuzzy';
-import $ from 'jquery';
-import 'select2';
 
 const namespace = 'react-select2-wrapper';
 
@@ -45,6 +43,7 @@ export default class Select2 extends Component {
   constructor(props) {
     super(props);
     this.el = null;
+    require('select2/dist/js/i18n/zh-CN.js');
   }
 
   componentDidMount() {
@@ -89,6 +88,8 @@ export default class Select2 extends Component {
     if (typeof options.dropdownParent === 'string') {
       options.dropdownParent = $(options.dropdownParent);
     }
+
+    options.language = 'zh-CN';
 
     this.el = $(ReactDOM.findDOMNode(this));
     this.el.select2(options);
