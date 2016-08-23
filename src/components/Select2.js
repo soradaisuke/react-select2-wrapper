@@ -25,6 +25,7 @@ export default class Select2 extends Component {
     onSelect: PropTypes.func,
     onChange: PropTypes.func,
     onUnselect: PropTypes.func,
+    forceUpdate: PropTypes.bool
   };
 
   static defaultProps = {
@@ -38,6 +39,7 @@ export default class Select2 extends Component {
     ],
     options: {},
     multiple: false,
+    forceUpdate: false
   };
 
   constructor(props) {
@@ -57,7 +59,7 @@ export default class Select2 extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!shallowEqualFuzzy(prevProps.data, this.props.data)) {
+    if (!shallowEqualFuzzy(prevProps.data, this.props.data) || this.props.forceUpdate) {
       this.destroySelect2(false);
       this.initSelect2(false);
     }
@@ -155,6 +157,7 @@ export default class Select2 extends Component {
     delete params.onSelect;
     delete params.onChange;
     delete params.onUnselect;
+    delete params.forceUpdate;
 
     return (
       <select {...params}>
